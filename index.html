@@ -1,19 +1,84 @@
 <!doctype html>
-
 <head>
-	<meta charset="utf-8">
 	<script>
-		// TODO: create a handler
-    window.addEventListener("load", function(){
-        // TODO: register the handler
-    });
+
+
+
+		function someFunction () {
+			
+			let form = document.getElementById("mysearchform");
+
+			let selectedEngine = document.querySelector('[name=engine]:checked');
+
+			let myaction;
+			if(selectedEngine === "google") {
+				myaction = "https://www.google.com/search";
+			} else if(selectedEngine === "duckduckgo") {
+				myaction = "https://duckduckgo.com/";
+			} else if(selectedEngine === "bing") {
+				myaction = "https://www.bing.com/search";
+			} else if(selectedEngine === "ask") {
+				myaction = "https://www.ask.com/web";
+			}
+			form.setAttribute('action', myaction);
+		}
+
+		function setSearchEngine() {
+
+			let form = document.getElementById("mysearchform");
+
+			let selectedEngine =  document.querySelector('[name=engine]:checked]').value;
+
+			if(document.querySelector('[name=engine]:checked') === null) {
+				alert("Select something!");
+				event.preventDefault();
+				return;
+			}
+
+
+			let actions = {
+				"google": "https://www.google.com/search",
+				"duckduckgo": "https://duckduckgo.com/",
+				"bing": "https://www.bing.com/search",
+				"ask": "https://www.ask.com/web"
+			};
+
+			let myaction = actions[selectedEngine.value];
+
+			form.setAttribute('action', myaction);
+		}
+
+
+		window.addEventListener('load', function(){
+			// set a onsubmit action for my form
+			let form = document.getElementById("mysearchform");
+			form.addEventListener("submit", someFunction );
+		});
+
 	</script>
 </head>
-
 <body>
+	<form id="mysearchform">
+		<input type="text" name="q" />
+		<label>
+			<input type="radio" name="engine" value="google"/>
+			Google
+		</label>
 
-	<form id="searchForm">
-    <!-- TODO: add form elements -->
+		<label>
+			<input type="radio" name="engine" value="duckduckgo"/>
+			DuckDuckGo
+		</label>
+
+		<label>
+			<input type="radio" name="engine" value="bing"/>
+			Bing
+		</label>
+
+		<label>
+			<input type="radio" name="engine" value="ask"/>
+			Ask
+		</label>
+		<input type="submit" name="mybutton" value="Go!"/>
 	</form>
-
 </body>
